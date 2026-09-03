@@ -155,6 +155,33 @@ button:focus-visible, select:focus-visible, summary:focus-visible, input:focus-v
 .ellipse-corners input { border: 1px solid var(--line); border-radius: 3px; color: var(--ink); font: 600 0.85rem "DM Sans", sans-serif; min-width: 0; padding: 6px; width: 100%; }
 .ellipse-corners input:focus { border-color: var(--blue); outline: 2px solid var(--blue); }
 
+/* Tablet (iPad and larger phones) */
+@media (min-width: 600px) and (max-width: 1024px) {
+  #app { padding: 32px 24px 0; }
+  .container { grid-template-columns: 1fr; gap: 20px; }
+  .controls-panel, .preview { padding: 24px; }
+  .preset-grid { grid-template-columns: repeat(3, 1fr); }
+  .syntax-tabs { grid-template-columns: repeat(3, 1fr); }
+  .syntax-tabs button:nth-child(4) { grid-column: span 3; }
+  .ellipse-corners { grid-template-columns: 1fr 1fr; }
+  .preview-stage { min-height: 380px; }
+}
+
+/* Smartphone landscape orientation */
+@media (max-width: 900px) and (orientation: landscape) {
+  #app { padding: 20px 24px 0; }
+  .hero { padding: 6px 0 16px; margin-bottom: 16px; }
+  h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
+  .intro { font-size: 1rem; margin: 10px 0 0; }
+  .container { gap: 14px; }
+  .controls-panel, .preview { padding: 16px; }
+  .preset-grid { grid-template-columns: repeat(2, 1fr); }
+  .preview-stage { min-height: 280px; margin: 16px 0; }
+  .code-editor { min-height: 60px; padding: 12px 48px 12px 12px; }
+  .syntax-strip { margin-top: 24px; padding: 16px 0 20px; }
+}
+
+/* Small phones (portrait) */
 @media (max-width: 520px) {
   .hero { padding-bottom: 24px; }
   h1 { font-size: clamp(3rem, 16vw, 4.5rem); overflow-wrap: anywhere; }
@@ -165,4 +192,19 @@ button:focus-visible, select:focus-visible, summary:focus-visible, input:focus-v
   .ellipse-editor { grid-template-columns: 1fr; }
   .ellipse-corners { grid-template-columns: 1fr; }
   .code-heading { align-items: start; flex-direction: column; gap: 10px; }
+  .preview-stage { min-height: 300px; }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  #app { padding: 20px 12px 0; }
+  .hero { padding: 4px 0 16px; margin-bottom: 16px; }
+  h1 { font-size: clamp(2rem, 14vw, 3rem); }
+  .eyebrow { font-size: 0.65rem; margin-bottom: 8px; }
+  .intro { font-size: 0.95rem; margin: 8px 0 0; }
+  .controls-panel, .preview { padding: 16px; }
+  .preset-grid { grid-template-columns: repeat(2, 1fr); gap: 4px; }
+  .value-editor label { grid-template-columns: 80px 55px 20px; gap: 4px; padding: 6px 8px; }
+  .code-editor { font-size: 0.82rem; padding: 12px 40px 12px 10px; }
+  .preview-stage { min-height: 250px; }
 }
