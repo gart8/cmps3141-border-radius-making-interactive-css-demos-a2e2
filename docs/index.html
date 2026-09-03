@@ -1,0 +1,149 @@
+<!--CMPS3141-HCI - AS2-26S1
+Collaborators:
+Date: Sept.3.26
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://get.mavo.io/mavo.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <title>Exercise 2</title>
+    <script src="index.js" type="module"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <header class="hero">
+        <p class="eyebrow">CMPS3141: Assignment 2 Exercise 2: Making Interactive CSS demos</p>
+        <h1>border-radius</h1>
+        <p class="intro">Give your corners some personality.</p>
+      </header>
+
+      <main class="container">
+
+        <div class="controls">
+          <section class="panel controls-panel">
+            <div class="section-heading">
+              <div>
+                <h2>Shorthand values</h2>
+              </div>
+              <label class="unit-control">Unit
+                <select v-model="unit" aria-label="Border radius unit">
+                  <option value="px">px</option>
+                  <option value="%">%</option>
+                </select>
+              </label>
+            </div>
+
+            <p class="helper">Pick a pattern, play with the numbers, and let CSS fill in the rest.</p>
+
+            <div class="syntax-tabs" role="group" aria-label="Border-radius value patterns">
+              <button type="button" :class="{ active: syntax === 'one' }" :aria-pressed="syntax === 'one'" @click="setSyntax('one')">1 value</button>
+              <button type="button" :class="{ active: syntax === 'two' }" :aria-pressed="syntax === 'two'" @click="setSyntax('two')">2 values</button>
+              <button type="button" :class="{ active: syntax === 'three' }" :aria-pressed="syntax === 'three'" @click="setSyntax('three')">3 values</button>
+              <button type="button" :class="{ active: syntax === 'four' }" :aria-pressed="syntax === 'four'" @click="setSyntax('four')">4 values</button>
+              <button type="button" :class="{ active: syntax === 'ellipse' }" :aria-pressed="syntax === 'ellipse'" @click="setSyntax('ellipse')">Ellipse</button>
+            </div>
+
+            <div class="value-editor" v-if="syntax !== 'ellipse'">
+              <label v-if="syntax === 'one' || syntax === 'two' || syntax === 'three' || syntax === 'four'">
+                <span>TL <small>(value 1)</small></span><input type="number" min="0" max="150" v-model="v1" @focus="setActiveValue(1)" @input="setActiveValue(1)" /><b>{{ unit }}</b>
+              </label>
+              <label v-if="syntax === 'two' || syntax === 'three' || syntax === 'four'">
+                <span>TR <small>(value 2)</small></span><input type="number" min="0" max="150" v-model="v2" @focus="setActiveValue(2)" @input="setActiveValue(2)" /><b>{{ unit }}</b>
+              </label>
+              <label v-if="syntax === 'three' || syntax === 'four'">
+                <span>BR <small>(value 3)</small></span><input type="number" min="0" max="150" v-model="v3" @focus="setActiveValue(3)" @input="setActiveValue(3)" /><b>{{ unit }}</b>
+              </label>
+              <label v-if="syntax === 'four'">
+                <span>BL <small>(value 4)</small></span><input type="number" min="0" max="150" v-model="v4" @focus="setActiveValue(4)" @input="setActiveValue(4)" /><b>{{ unit }}</b>
+              </label>
+            </div>
+
+            <div class="ellipse-editor" v-if="syntax === 'ellipse'">
+              <p class="ellipse-help">Each corner has a horizontal radius and a vertical radius.</p>
+              <div class="ellipse-corners">
+                <fieldset><legend>TL <small>(value 1)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h1" @focus="setActiveCorner('TL')" @input="setActiveCorner('TL')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r1" @focus="setActiveCorner('TL')" @input="setActiveCorner('TL')" /></label></fieldset>
+                <fieldset><legend>TR <small>(value 2)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h2" @focus="setActiveCorner('TR')" @input="setActiveCorner('TR')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r2" @focus="setActiveCorner('TR')" @input="setActiveCorner('TR')" /></label></fieldset>
+                <fieldset><legend>BR <small>(value 3)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h3" @focus="setActiveCorner('BR')" @input="setActiveCorner('BR')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r3" @focus="setActiveCorner('BR')" @input="setActiveCorner('BR')" /></label></fieldset>
+                <fieldset><legend>BL <small>(value 4)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h4" @focus="setActiveCorner('BL')" @input="setActiveCorner('BL')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r4" @focus="setActiveCorner('BL')" @input="setActiveCorner('BL')" /></label></fieldset>
+              </div>
+            </div>
+
+            <p class="mapping" v-if="syntax === 'one'">All four corners use <strong>Value 1</strong>.</p>
+            <p class="mapping" v-if="syntax === 'two'">1st/3rd corners use Value 1. 2nd/4th use Value 2.</p>
+            <p class="mapping" v-if="syntax === 'three'">Top-left: 1, top-right/bottom-left: 2, bottom-right: 3.</p>
+            <p class="mapping" v-if="syntax === 'four'">Values travel clockwise: top-left, top-right, bottom-right, bottom-left.</p>
+            <p class="mapping" v-if="syntax === 'ellipse'"><strong>Before / after the slash:</strong> horizontal radii / vertical radii. Each side follows the same clockwise order.</p>
+
+            <div class="preset-block">
+              <p class="kicker">Try a pattern</p>
+              <div class="preset-grid">
+                <button type="button" @click="setCircle">Circle</button>
+                <button type="button" @click="setPill">Pill</button>
+                <button type="button" @click="setBlob">Blob</button>
+                <button type="button" class="quiet-button" @click="reset">Reset</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="lesson-note">
+            <strong>One property, four corners</strong>
+            <p>With fewer than four values, the browser repeats and mirrors them. That is the useful trick behind the shorthand.</p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius" target="_blank" rel="noopener noreferrer">Read the MDN reference <span aria-hidden="true">↗</span></a>
+          </section>
+        </div>
+
+        <section class="preview panel">
+          <div class="section-heading preview-heading">
+            <div>
+              <h2>Live preview</h2>
+            </div>
+            <div class="preview-actions">
+              <span class="live-status"><span></span> Live</span>
+              <button type="button" class="grid-toggle" :aria-pressed="showGrid" @click="toggleGrid" title="Show or hide the preview grid"><span aria-hidden="true">⌗</span> Grid</button>
+            </div>
+          </div>
+
+          <div class="preview-stage" :class="{ 'hide-grid': !showGrid }">
+            <div class="box" :style="{ borderRadius: getDeclaration() }">
+              <div class="corner corner-tl" :class="{ active: isActiveCorner('TL') }">TL</div>
+              <div class="corner corner-tr" :class="{ active: isActiveCorner('TR') }">TR</div>
+              <div class="corner corner-br" :class="{ active: isActiveCorner('BR') }">BR</div>
+              <div class="corner corner-bl" :class="{ active: isActiveCorner('BL') }">BL</div>
+            </div>
+          </div>
+
+          <div class="code-panel">
+            <div class="code-heading">
+              <p class="kicker">Edit the declaration</p>
+              <span class="edit-hint"><span aria-hidden="true">✎</span> Type in the code</span>
+            </div>
+            <div class="code-editor-wrap">
+              <textarea class="code-editor" v-model="codeInput" @input="updateFromCode" spellcheck="false" aria-label="Editable border-radius declaration" placeholder="border-radius: 30px 10px;"></textarea>
+              <button type="button" class="copy-button" @click="copyCSS" aria-label="Copy CSS" title="Copy CSS"><span aria-hidden="true">⧉</span></button>
+            </div>
+            <p v-if="codeError" class="code-error" role="alert">Use 1–4 numeric values, with optional px or % units.</p>
+            <details class="longhand-details">
+              <summary>See the longhand version</summary>
+              <p>Here is what the shorthand expands to:</p>
+              <code class="longhand-code">{{ getLonghand() }}</code>
+            </details>
+            <p v-if="copied" class="copied" role="status" aria-live="polite">{{ copiedMessage }}</p>
+          </div>
+        </section>
+
+      </main>
+
+      <footer class="syntax-strip">
+        <span class="syntax-label">Syntax</span>
+        <code>1 value = all corners &nbsp; | &nbsp; 2 values = opposite pairs &nbsp; | &nbsp; 3 values = mirrored &nbsp; | &nbsp; 4 values = clockwise &nbsp; | &nbsp; slash = elliptical</code>
+      </footer>
+    </div>
+
+  </body>
+</html>
