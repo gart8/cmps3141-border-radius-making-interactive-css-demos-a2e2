@@ -239,7 +239,7 @@ button:focus-visible, select:focus-visible, summary:focus-visible, input:focus-v
   .longhand-details summary { font-size: 0.98rem; }
   .longhand-details p { font-size: 0.95rem; margin: 12px 0 10px; }
   .longhand-code { font-size: 0.95rem; padding: 14px 16px; }
-  .preview-stage { margin: 20px 0; }
+  .preview-stage { margin: 20px auto; max-width: 640px; }
   .lesson-note { padding: 18px 20px; margin-bottom: 20px; }
   .lesson-note strong { font-size: 1.15rem; }
   .lesson-note p { font-size: 1rem; margin: 10px 0 14px; line-height: 1.6; }
