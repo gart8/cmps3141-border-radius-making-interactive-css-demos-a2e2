@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A showcase of the interactive border-radius CSS learning demo." />
+    <title>Border-radius demo | Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@0.468.0"></script>
+    <style>
+      :root {
+        --ink: #163942;
+        --muted: #536a6f;
+        --paper: #f4f8f5;
+        --panel: #fffefa;
+        --line: #c8d9d5;
+        --coral: #e96f32;
+        --blue: #1d7896;
+        --blue-rgb: 29, 120, 150;
+        --yellow: #d8ec68;
+        --mint: #d4eee9;
+        --soft-highlight: #f0f6c9;
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 16px;
+        --space-4: 24px;
+        --space-5: 32px;
+        --space-6: 48px;
+        --shadow-1: 0 2px 6px rgba(22, 57, 66, 0.14), 0 6px 12px rgba(22, 57, 66, 0.08);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: "DM Sans", sans-serif;
+        background-image: radial-gradient(rgba(var(--blue-rgb), 0.12) 0.8px, transparent 0.8px);
+        background-size: 20px 20px;
+      }
+      .showcase { max-width: 1160px; margin: 0 auto; padding: var(--space-4) var(--space-5) var(--space-6); }
+      .showcase-nav { align-items: center; display: flex; justify-content: space-between; gap: var(--space-3); margin-bottom: 72px; }
+      .showcase-nav-links { align-items: center; display: flex; gap: var(--space-4); }
+      .brand { color: var(--ink); font-family: "Space Grotesk", sans-serif; font-size: 1.05rem; font-weight: 700; text-decoration: none; }
+      .nav-link, .primary-link { align-items: center; display: inline-flex; gap: var(--space-2); }
+      .nav-link { color: var(--blue); font-size: 0.85rem; font-weight: 700; text-decoration: none; }
+      .nav-link svg, .primary-link svg, .feature-icon svg, .principle svg { height: 1em; width: 1em; }
+      .eyebrow, .section-label { color: var(--coral); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+      .hero { align-items: center; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr); gap: 72px; margin-bottom: 112px; }
+      h1, h2, h3 { font-family: "Space Grotesk", sans-serif; margin: 0; }
+      h1 { font-size: clamp(3.5rem, 7vw, 6.2rem); line-height: 0.92; max-width: 680px; }
+      h1 span { color: var(--blue); }
+      .hero-copy { color: var(--muted); font-size: 1.15rem; line-height: 1.6; margin: var(--space-4) 0 var(--space-5); max-width: 560px; }
+      .primary-link { background: var(--ink); border: 1px solid var(--ink); border-radius: 4px; color: white; min-height: 48px; padding: 12px 18px; text-decoration: none; transition: background 0.15s ease, box-shadow 0.15s ease; }
+      .primary-link:hover { background: var(--blue); box-shadow: var(--shadow-1); }
+      .demo-visual { background: var(--mint); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-1); min-height: 390px; padding: var(--space-4); position: relative; overflow: hidden; }
+      .demo-visual::before, .demo-visual::after { background: rgba(var(--blue-rgb), 0.28); content: ""; position: absolute; }
+      .demo-visual::before { height: 1px; left: 0; right: 0; top: 50%; }
+      .demo-visual::after { bottom: 0; left: 50%; top: 0; width: 1px; }
+      .demo-grid { background-image: linear-gradient(rgba(var(--blue-rgb), 0.13) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--blue-rgb), 0.13) 1px, transparent 1px); background-position: 50% 50%; background-size: 24px 24px; inset: 0; position: absolute; }
+      .demo-shape { background: var(--blue); border: 4px solid var(--coral); border-radius: 48% 22% 36% 18% / 22% 40% 28% 48%; height: 220px; left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); width: 220px; z-index: 1; }
+      .demo-tag { background: var(--panel); border-radius: 4px; color: var(--ink); font-size: 0.7rem; font-weight: 700; padding: 6px 8px; position: absolute; z-index: 2; }
+      .demo-tag.tl { left: 16px; top: 16px; }.demo-tag.tr { right: 16px; top: 16px; }.demo-tag.br { bottom: 16px; right: 16px; }.demo-tag.bl { bottom: 16px; left: 16px; }
+      .demo-caption { background: var(--ink); border-radius: 4px; bottom: 16px; color: white; font-size: 0.72rem; font-weight: 700; left: 50%; padding: 7px 10px; position: absolute; transform: translateX(-50%); z-index: 2; white-space: nowrap; }
+      .section { margin-bottom: 112px; }
+      .section-heading { align-items: end; display: flex; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-5); }
+      .section-heading h2 { font-size: 2.3rem; line-height: 1; max-width: 520px; }
+      .section-heading p { color: var(--muted); line-height: 1.5; margin: 0; max-width: 360px; }
+      .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+      .feature { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-1); min-height: 220px; padding: var(--space-4); }
+      .feature-icon { align-items: center; background: var(--soft-highlight); border-radius: 50%; color: var(--coral); display: flex; height: 44px; justify-content: center; margin-bottom: var(--space-4); width: 44px; }
+      .feature h3 { font-size: 1.25rem; margin-bottom: var(--space-2); }
+      .feature p { color: var(--muted); line-height: 1.55; margin: 0; }
+      .workflow { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+      .step { border-top: 3px solid var(--coral); padding-top: var(--space-3); }
+      .step-number { color: var(--coral); font-family: "Space Grotesk", sans-serif; font-size: 2rem; font-weight: 700; }
+      .step h3 { font-size: 1.25rem; margin: var(--space-2) 0; }
+      .step p { color: var(--muted); line-height: 1.55; margin: 0; }
+      .principles { background: var(--ink); border-radius: 8px; color: white; display: grid; grid-template-columns: 0.85fr 1.15fr; gap: var(--space-6); padding: var(--space-5); }
+      .principles .section-label { color: var(--yellow); }
+      .principles h2 { color: white; font-size: 2.2rem; line-height: 1; }
+      .principle-list { display: grid; gap: var(--space-3); }
+      .principle { align-items: start; border-bottom: 1px solid rgba(255,255,255,0.2); display: grid; grid-template-columns: 28px 1fr; gap: var(--space-2); padding-bottom: var(--space-3); }
+      .principle:last-child { border-bottom: 0; padding-bottom: 0; }
+      .principle svg { color: var(--yellow); margin-top: 3px; }
+      .principle strong { display: block; margin-bottom: var(--space-1); }
+      .principle span { color: #c8d9d5; line-height: 1.5; }
+      .showcase-footer { align-items: center; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: var(--space-3); padding-top: var(--space-4); }
+      .showcase-footer p { color: var(--muted); font-size: 0.85rem; margin: 0; }
+      @media (max-width: 800px) {
+        .showcase { padding: var(--space-3) var(--space-3) var(--space-5); }
+        .showcase-nav { margin-bottom: 56px; }
+        .hero { grid-template-columns: 1fr; gap: var(--space-5); margin-bottom: 80px; }
+        h1 { font-size: 3.7rem; }
+        .demo-visual { min-height: 330px; }
+        .section { margin-bottom: 80px; }
+        .section-heading { align-items: start; flex-direction: column; }
+        .feature-grid, .workflow { grid-template-columns: 1fr; }
+        .feature { min-height: auto; }
+        .principles { grid-template-columns: 1fr; gap: var(--space-4); }
+      }
+      @media (max-width: 480px) {
+        .showcase-nav { align-items: start; flex-direction: column; }
+        .showcase-nav-links { align-items: start; flex-direction: column; gap: var(--space-2); }
+        h1 { font-size: 2.8rem; }
+        .hero-copy { font-size: 1rem; }
+        .demo-shape { height: 180px; width: 180px; }
+        .demo-caption { font-size: 0.65rem; }
+        .showcase-footer { align-items: start; flex-direction: column; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="showcase">
+      <nav class="showcase-nav" aria-label="Showcase navigation">
+        <a class="brand" href="index.html">border-radius lab</a>
+        <div class="showcase-nav-links">
+          <a class="nav-link" href="../../cmps3141-website-a2e3/index.html">Portfolio</a>
+          <a class="nav-link" href="index.html">Open the interactive demo <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+        </div>
+      </nav>
+
+      <main>
+        <section class="hero" aria-labelledby="showcase-title">
+          <div>
+            <p class="eyebrow">CMPS3141 · Exercise 2</p>
+            <h1 id="showcase-title">Learn the shape of <span>border-radius.</span></h1>
+            <p class="hero-copy">An interactive CSS workbench for seeing how shorthand values travel around a box, and how horizontal and vertical radii create an ellipse.</p>
+            <a class="primary-link" href="index.html">Try the live demo <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <div class="demo-visual" aria-label="Illustration of a rounded blue shape with corner labels and axis guides">
+            <div class="demo-grid"></div>
+            <div class="demo-shape"></div>
+            <span class="demo-tag tl">1 TL</span>
+            <span class="demo-tag tr">2 TR</span>
+            <span class="demo-tag br">3 BR</span>
+            <span class="demo-tag bl">4 BL</span>
+            <span class="demo-caption">horizontal / vertical</span>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="features-title">
+          <div class="section-heading">
+            <div><p class="section-label">What it helps you see</p><h2 id="features-title">One property, three ways to understand it.</h2></div>
+            <p>The interface keeps the code visible while the preview makes each change concrete.</p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature"><div class="feature-icon"><i data-lucide="crop" aria-hidden="true"></i></div><h3>Clockwise mapping</h3><p>Numbered corner markers show how one, two, three, and four-value shorthand expands around the box.</p></article>
+            <article class="feature"><div class="feature-icon"><i data-lucide="move-horizontal" aria-hidden="true"></i></div><h3>Ellipse anatomy</h3><p>Paired horizontal and vertical inputs reveal that an elliptical corner is controlled by two radii, not one.</p></article>
+            <article class="feature"><div class="feature-icon"><i data-lucide="mouse-pointer-2" aria-hidden="true"></i></div><h3>Direct manipulation</h3><p>Drag the orange border to experiment directly, or use precise numeric controls when you need exact CSS.</p></article>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="workflow-title">
+          <div class="section-heading">
+            <div><p class="section-label">Designed for learning</p><h2 id="workflow-title">A short path from curiosity to confidence.</h2></div>
+          </div>
+          <div class="workflow">
+            <article class="step"><span class="step-number">01</span><h3>Choose a pattern</h3><p>Start with one value, then add values to see how CSS repeats and mirrors them.</p></article>
+            <article class="step"><span class="step-number">02</span><h3>Change the shape</h3><p>Adjust a value or drag the border and watch the affected corners respond immediately.</p></article>
+            <article class="step"><span class="step-number">03</span><h3>Read the CSS</h3><p>Compare the shorthand with the expanded longhand declaration before copying the result.</p></article>
+          </div>
+        </section>
+
+        <section class="section principles" aria-labelledby="principles-title">
+          <div><p class="section-label">HCI priorities</p><h2 id="principles-title">Learnable, efficient, and forgiving.</h2></div>
+          <div class="principle-list">
+            <div class="principle"><i data-lucide="graduation-cap" aria-hidden="true"></i><div><strong>Learnability</strong><span>Explanations sit beside the controls, with live corner markers and a grid to support visual reasoning.</span></div></div>
+            <div class="principle"><i data-lucide="zap" aria-hidden="true"></i><div><strong>Efficiency</strong><span>Presets, direct editing, copyable CSS, and drag interaction support quick experimentation.</span></div></div>
+            <div class="principle"><i data-lucide="shield-check" aria-hidden="true"></i><div><strong>Safety</strong><span>Inputs are bounded, invalid declarations are flagged, and the generated output stays within the supported model.</span></div></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="showcase-footer">
+        <p>CMPS3141 HCI · Interactive CSS demonstrations</p>
+        <a class="nav-link" href="index.html">Open border-radius lab <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+      </footer>
+    </div>
+    <script>window.lucide?.createIcons();</script>
+  </body>
+</html>
