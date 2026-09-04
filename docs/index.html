@@ -43,12 +43,13 @@ Date: Sept.3.26
 
             <p class="helper">Pick a pattern, play with the numbers, and let CSS fill in the rest.</p>
 
+            <p class="pattern-heading">Number of values:</p>
             <div class="syntax-tabs" role="group" aria-label="Border-radius value patterns">
-              <button type="button" :class="{ active: syntax === 'one' }" :aria-pressed="syntax === 'one'" @click="setSyntax('one')">1 value</button>
-              <button type="button" :class="{ active: syntax === 'two' }" :aria-pressed="syntax === 'two'" @click="setSyntax('two')">2 values</button>
-              <button type="button" :class="{ active: syntax === 'three' }" :aria-pressed="syntax === 'three'" @click="setSyntax('three')">3 values</button>
-              <button type="button" :class="{ active: syntax === 'four' }" :aria-pressed="syntax === 'four'" @click="setSyntax('four')">4 values</button>
-              <button type="button" :class="{ active: syntax === 'ellipse' }" :aria-pressed="syntax === 'ellipse'" @click="setSyntax('ellipse')">Ellipse</button>
+              <button type="button" aria-label="1 value" title="1 value" :class="{ active: syntax === 'one' }" :aria-pressed="syntax === 'one'" @click="setSyntax('one')"><span class="pattern-full">1 value</span><span class="pattern-short">1</span></button>
+              <button type="button" aria-label="2 values" title="2 values" :class="{ active: syntax === 'two' }" :aria-pressed="syntax === 'two'" @click="setSyntax('two')"><span class="pattern-full">2 values</span><span class="pattern-short">2</span></button>
+              <button type="button" aria-label="3 values" title="3 values" :class="{ active: syntax === 'three' }" :aria-pressed="syntax === 'three'" @click="setSyntax('three')"><span class="pattern-full">3 values</span><span class="pattern-short">3</span></button>
+              <button type="button" aria-label="4 values" title="4 values" :class="{ active: syntax === 'four' }" :aria-pressed="syntax === 'four'" @click="setSyntax('four')"><span class="pattern-full">4 values</span><span class="pattern-short">4</span></button>
+              <button type="button" aria-label="Ellipse" title="Ellipse" :class="{ active: syntax === 'ellipse' }" :aria-pressed="syntax === 'ellipse'" @click="setSyntax('ellipse')"><span class="pattern-full">Ellipse</span><span class="pattern-short">Ellipse</span></button>
             </div>
 
             <div class="value-editor" v-if="syntax !== 'ellipse'">
