@@ -251,10 +251,26 @@ button:focus-visible, select:focus-visible, summary:focus-visible, input:focus-v
   #app { padding: var(--space-3) var(--space-2) 0; }
   h1 { font-size: 2.5rem; }
   .controls-panel, .preview { padding: var(--space-3); }
-  .preview-actions { justify-content: flex-start; }
+  body { font-size: 1rem; }
+  .hero { padding-bottom: var(--space-4); }
+  .eyebrow { font-size: 0.75rem; line-height: 1.45; }
+  .intro { font-size: 1.05rem; }
+  .section-heading { gap: var(--space-3); }
+  .preview-actions { align-items: stretch; justify-content: flex-start; width: 100%; }
+  .preview-actions .grid-toggle { flex: 1 1 140px; font-size: 0.9rem; min-height: 48px; }
+  .live-status { align-self: center; font-size: 0.85rem; }
   .preview-heading { gap: var(--space-3); }
   .syntax-tabs { grid-template-columns: repeat(2, 1fr); }
   .syntax-tabs button:last-child { grid-column: 1 / -1; }
+  .syntax-tabs button { font-size: 1rem; min-height: 52px; }
+  .value-editor { gap: var(--space-2); }
+  .value-editor label { grid-template-columns: minmax(86px, 1fr) minmax(96px, 1.4fr) 42px; min-height: 56px; }
+  .value-editor label span, .value-editor input, .value-editor b { font-size: 1rem; }
+  .ellipse-corners fieldset label { font-size: 0.95rem; }
+  .ellipse-corners input { min-height: 44px; }
+  .preset-grid button { min-height: 52px; }
+  .code-editor { min-height: 104px; }
+  .radius-feedback { font-size: 0.8rem; max-width: 85%; overflow-wrap: anywhere; }
 }
 
 @media (max-width: 500px) {
