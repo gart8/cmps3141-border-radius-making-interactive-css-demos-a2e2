@@ -113,11 +113,11 @@ Date: Sept.3.26
             </div>
           </div>
 
-          <div class="preview-stage" :class="{ 'hide-grid': !showGrid, 'ellipse-mode': syntax === 'ellipse' && showLabels, 'active-tl': isActiveCorner('TL'), 'active-tr': isActiveCorner('TR'), 'active-br': isActiveCorner('BR'), 'active-bl': isActiveCorner('BL') }">
+          <div class="preview-stage" :class="{ 'hide-grid': !showGrid, 'ellipse-mode': syntax === 'ellipse' && showLabels, 'horizontal-active': activeAxis === 'horizontal', 'vertical-active': activeAxis === 'vertical', 'active-tl': isActiveCorner('TL'), 'active-tr': isActiveCorner('TR'), 'active-br': isActiveCorner('BR'), 'active-bl': isActiveCorner('BL') }">
             <span v-if="syntax === 'ellipse' && showLabels" class="axis-guide axis-horizontal" :class="{ active: activeAxis === 'horizontal' }">horizontal</span>
             <span v-if="syntax === 'ellipse' && showLabels" class="axis-guide axis-vertical" :class="{ active: activeAxis === 'vertical' }">vertical</span>
             <span v-if="syntax === 'ellipse' && activeAxis && showLabels" class="radius-feedback">{{ activeCorners[0] }} · {{ activeAxis }} {{ getActiveEllipseValue() }}{{ unit }}</span>
-            <div class="box" :style="{ borderRadius: getDeclaration() }" @pointerdown="startBorderDrag" @pointermove="updateBorderDrag" @pointerup="endBorderDrag" @pointercancel="endBorderDrag" @lostpointercapture="endBorderDrag" aria-label="Drag the border to change the radius">
+            <div class="box" :class="{ dragging: dragPointerId !== null }" :style="{ borderRadius: getDeclaration() }" @pointerdown="startBorderDrag" @pointermove="updateBorderDrag" @pointerup="endBorderDrag" @pointercancel="endBorderDrag" @lostpointercapture="endBorderDrag" aria-label="Drag the border to change the radius">
               <div v-if="showLabels" class="corner corner-tl" :class="{ active: isActiveCorner('TL') }"><b>1</b> TL</div>
               <div v-if="showLabels" class="corner corner-tr" :class="{ active: isActiveCorner('TR') }"><b>2</b> TR</div>
               <div v-if="showLabels" class="corner corner-br" :class="{ active: isActiveCorner('BR') }"><b>3</b> BR</div>
