@@ -11,6 +11,7 @@ Date: Sept.3.26
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@0.468.0"></script>
     <title>border-radius demo</title>
     <script src="index.js" type="module"></script>
   </head>
@@ -25,6 +26,7 @@ Date: Sept.3.26
 
       <main class="container">
 
+        <!-- Controls teach the shorthand patterns and provide quick presets. -->
         <div class="controls">
           <section class="panel controls-panel">
             <div class="section-heading">
@@ -67,10 +69,10 @@ Date: Sept.3.26
             <div class="ellipse-editor" v-if="syntax === 'ellipse'">
               <p class="ellipse-help">Each corner has a horizontal radius and a vertical radius.</p>
               <div class="ellipse-corners">
-                <fieldset><legend>TL <small>(value 1)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h1" @focus="setActiveCorner('TL')" @input="setActiveCorner('TL')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r1" @focus="setActiveCorner('TL')" @input="setActiveCorner('TL')" /></label></fieldset>
-                <fieldset><legend>TR <small>(value 2)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h2" @focus="setActiveCorner('TR')" @input="setActiveCorner('TR')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r2" @focus="setActiveCorner('TR')" @input="setActiveCorner('TR')" /></label></fieldset>
-                <fieldset><legend>BR <small>(value 3)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h3" @focus="setActiveCorner('BR')" @input="setActiveCorner('BR')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r3" @focus="setActiveCorner('BR')" @input="setActiveCorner('BR')" /></label></fieldset>
-                <fieldset><legend>BL <small>(value 4)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h4" @focus="setActiveCorner('BL')" @input="setActiveCorner('BL')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r4" @focus="setActiveCorner('BL')" @input="setActiveCorner('BL')" /></label></fieldset>
+                <fieldset><legend>TL <small>(value 1)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h1" @focus="setActiveEllipseValue('TL', 'horizontal')" @input="setActiveEllipseValue('TL', 'horizontal')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r1" @focus="setActiveEllipseValue('TL', 'vertical')" @input="setActiveEllipseValue('TL', 'vertical')" /></label></fieldset>
+                <fieldset><legend>TR <small>(value 2)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h2" @focus="setActiveEllipseValue('TR', 'horizontal')" @input="setActiveEllipseValue('TR', 'horizontal')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r2" @focus="setActiveEllipseValue('TR', 'vertical')" @input="setActiveEllipseValue('TR', 'vertical')" /></label></fieldset>
+                <fieldset><legend>BR <small>(value 3)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h3" @focus="setActiveEllipseValue('BR', 'horizontal')" @input="setActiveEllipseValue('BR', 'horizontal')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r3" @focus="setActiveEllipseValue('BR', 'vertical')" @input="setActiveEllipseValue('BR', 'vertical')" /></label></fieldset>
+                <fieldset><legend>BL <small>(value 4)</small></legend><label>Horizontal<input type="number" min="0" max="150" v-model="h4" @focus="setActiveEllipseValue('BL', 'horizontal')" @input="setActiveEllipseValue('BL', 'horizontal')" /></label><label>Vertical<input type="number" min="0" max="150" v-model="r4" @focus="setActiveEllipseValue('BL', 'vertical')" @input="setActiveEllipseValue('BL', 'vertical')" /></label></fieldset>
               </div>
             </div>
 
@@ -86,7 +88,7 @@ Date: Sept.3.26
                 <button type="button" @click="setCircle">Circle</button>
                 <button type="button" @click="setPill">Pill</button>
                 <button type="button" @click="setBlob">Blob</button>
-                <button type="button" class="quiet-button" @click="reset">Reset</button>
+                <button type="button" class="quiet-button" @click="reset"><i data-lucide="rotate-ccw" aria-hidden="true"></i> Reset</button>
               </div>
             </div>
           </section>
@@ -94,10 +96,11 @@ Date: Sept.3.26
           <section class="lesson-note">
             <strong>One property, four corners</strong>
             <p>With fewer than four values, the browser repeats and mirrors them. That is the useful trick behind the shorthand.</p>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius" target="_blank" rel="noopener noreferrer">Read the MDN reference <span aria-hidden="true">↗</span></a>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius" target="_blank" rel="noopener noreferrer">Read the MDN reference <i data-lucide="external-link" aria-hidden="true"></i></a>
           </section>
         </div>
 
+        <!-- The preview mirrors every control change and supports border dragging. -->
         <section class="preview panel">
           <div class="section-heading preview-heading">
             <div>
@@ -105,34 +108,37 @@ Date: Sept.3.26
             </div>
             <div class="preview-actions">
               <span class="live-status"><span></span> Live</span>
-              <button type="button" class="grid-toggle" :aria-pressed="showGrid" @click="toggleGrid" title="Show or hide the preview grid"><span aria-hidden="true">⌗</span> Grid</button>
+              <button type="button" class="grid-toggle" :aria-pressed="showGrid" @click="toggleGrid" title="Show or hide the preview grid"><i data-lucide="grid-2x2" aria-hidden="true"></i> Grid</button>
+              <button type="button" class="grid-toggle" :aria-pressed="showLabels" @click="toggleLabels" :title="showLabels ? 'Hide preview labels' : 'Show preview labels'"><i data-lucide="type" aria-hidden="true"></i> {{ showLabels ? 'Hide labels' : 'Show labels' }}</button>
             </div>
           </div>
 
-          <div class="preview-stage" :class="{ 'hide-grid': !showGrid }">
-            <div class="box" :style="{ borderRadius: getDeclaration() }">
-              <div class="corner corner-tl" :class="{ active: isActiveCorner('TL') }">TL</div>
-              <div class="corner corner-tr" :class="{ active: isActiveCorner('TR') }">TR</div>
-              <div class="corner corner-br" :class="{ active: isActiveCorner('BR') }">BR</div>
-              <div class="corner corner-bl" :class="{ active: isActiveCorner('BL') }">BL</div>
+          <div class="preview-stage" :class="{ 'hide-grid': !showGrid, 'ellipse-mode': syntax === 'ellipse' && showLabels, 'active-tl': isActiveCorner('TL'), 'active-tr': isActiveCorner('TR'), 'active-br': isActiveCorner('BR'), 'active-bl': isActiveCorner('BL') }">
+            <span v-if="syntax === 'ellipse' && showLabels" class="axis-guide axis-horizontal" :class="{ active: activeAxis === 'horizontal' }">horizontal</span>
+            <span v-if="syntax === 'ellipse' && showLabels" class="axis-guide axis-vertical" :class="{ active: activeAxis === 'vertical' }">vertical</span>
+            <span v-if="syntax === 'ellipse' && activeAxis && showLabels" class="radius-feedback">{{ activeCorners[0] }} · {{ activeAxis }} {{ getActiveEllipseValue() }}{{ unit }}</span>
+            <div class="box" :style="{ borderRadius: getDeclaration() }" @pointerdown="startBorderDrag" @pointermove="updateBorderDrag" @pointerup="endBorderDrag" @pointercancel="endBorderDrag" @lostpointercapture="endBorderDrag" aria-label="Drag the border to change the radius">
+              <div v-if="showLabels" class="corner corner-tl" :class="{ active: isActiveCorner('TL') }"><b>1</b> TL</div>
+              <div v-if="showLabels" class="corner corner-tr" :class="{ active: isActiveCorner('TR') }"><b>2</b> TR</div>
+              <div v-if="showLabels" class="corner corner-br" :class="{ active: isActiveCorner('BR') }"><b>3</b> BR</div>
+              <div v-if="showLabels" class="corner corner-bl" :class="{ active: isActiveCorner('BL') }"><b>4</b> BL</div>
             </div>
           </div>
 
           <div class="code-panel">
             <div class="code-heading">
               <p class="kicker">Edit the declaration</p>
-              <span class="edit-hint"><span aria-hidden="true">✎</span> Type in the code</span>
+              <span class="edit-hint"><i data-lucide="pencil" aria-hidden="true"></i> Type in the code</span>
             </div>
             <div class="code-editor-wrap">
-              <textarea class="code-editor" v-model="codeInput" @input="updateFromCode" spellcheck="false" aria-label="Editable border-radius declaration" placeholder="border-radius: 30px 10px;"></textarea>
-              <button type="button" class="copy-button" @click="copyCSS" aria-label="Copy CSS" title="Copy CSS"><span aria-hidden="true">⧉</span></button>
+              <textarea class="code-editor" v-model="codeInput" @input="updateFromCode" :aria-invalid="codeError" spellcheck="false" aria-label="Editable border-radius declaration" placeholder="border-radius: 30px 10px;"></textarea>
+              <button type="button" class="copy-button" @click="copyCSS" aria-label="Copy CSS" title="Copy CSS"><i data-lucide="copy" aria-hidden="true"></i></button>
             </div>
-            <p v-if="codeError" class="code-error" role="alert">Use 1–4 numeric values, with optional px or % units.</p>
-            <details class="longhand-details">
-              <summary>See the longhand version</summary>
-              <p>Here is what the shorthand expands to:</p>
+            <p v-if="codeError" class="code-error" role="alert">Use 1–4 values from 0 to 150. Add px or %, except for unitless zero.</p>
+            <div class="longhand-details">
+              <div class="longhand-heading"><div><strong>Browser applies this as</strong><p>Each corner receives a complete radius value.</p></div></div>
               <code class="longhand-code">{{ getLonghand() }}</code>
-            </details>
+            </div>
             <p v-if="copied" class="copied" role="status" aria-live="polite">{{ copiedMessage }}</p>
           </div>
         </section>
