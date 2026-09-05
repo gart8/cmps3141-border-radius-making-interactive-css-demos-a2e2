@@ -96,7 +96,7 @@ button:focus-visible, select:focus-visible, summary:focus-visible, input:focus-v
 .lesson-note a { align-items: center; color: var(--blue); display: inline-flex; font-size: 0.82rem; font-weight: 700; gap: 5px; text-decoration: none; }
 .lesson-note a svg, .grid-toggle svg, .edit-hint svg, .quiet-button svg { height: 1em; width: 1em; }
 
-.preview { min-height: 100%; animation: rise 0.6s 0.1s ease both; }
+.preview { min-height: 0; animation: rise 0.6s 0.1s ease both; }
 .preview-heading { align-items: center; }
 .preview-actions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); justify-content: flex-end; }
 .live-status { color: var(--muted); font-size: 0.75rem; font-weight: 700; }
@@ -195,7 +195,7 @@ button:focus-visible, select:focus-visible, summary:focus-visible, input:focus-v
 @media (max-width: 1024px) {
   #app { padding: var(--space-4) var(--space-3) 0; }
   .container { display: flex; width: 100%; min-width: 0; flex-direction: column; gap: var(--space-4); }
-  .preview { order: 2; width: 100%; min-width: 0; max-width: 100%; flex: 0 0 100%; box-sizing: border-box; }
+  .preview { order: 2; width: 100%; min-width: 0; max-width: 100%; min-height: 0; flex: 0 0 auto; box-sizing: border-box; }
   .controls { display: contents; }
   .controls-panel { order: 1; width: 100%; min-width: 0; max-width: 100%; flex: 0 0 100%; box-sizing: border-box; }
   .lesson-note { order: 3; width: 100%; min-width: 0; max-width: 100%; flex: 0 0 100%; box-sizing: border-box; }
