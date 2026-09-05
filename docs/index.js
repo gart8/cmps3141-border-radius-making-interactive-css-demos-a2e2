@@ -322,3 +322,28 @@ createApp({
 if (window.lucide) {
   window.lucide.createIcons();
 }
+
+// Remove one grid row above and two below the shape from the square preview.
+const previewStage = document.querySelector(".preview-stage");
+const previewPanel = document.querySelector(".preview");
+if (previewStage && previewPanel) {
+  let resizeTimer;
+  const resizePreviewStage = () => {
+    const isMobile = window.matchMedia("(max-width: 500px)").matches;
+    const gridSize = isMobile ? 16 : 24;
+    const width = previewStage.getBoundingClientRect().width;
+    const height = isMobile
+      ? window.innerWidth - 111
+      : width - gridSize * 3 - 2;
+    previewStage.style.height = `${Math.max(height, gridSize * 10 + 2)}px`;
+  };
+  const schedulePreviewResize = () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(resizePreviewStage, 500);
+  };
+  new ResizeObserver(schedulePreviewResize).observe(previewPanel);
+  window.addEventListener("resize", schedulePreviewResize);
+  schedulePreviewResize();
+  window.setTimeout(resizePreviewStage, 1000);
+}
+
